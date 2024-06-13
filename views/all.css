@@ -1,0 +1,271 @@
+body {
+  margin: 0;
+  
+  padding: 0;
+  background-color: white;
+}
+.webcam-head {
+  margin-top: 0;
+  margin-bottom: 10px;
+  background-color: #0e212c;
+  height: 50px;
+  padding-top: 10px;
+}
+.mr-auto,
+.mx-auto {
+  margin-right: auto !important;
+}
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
+
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 20px #fff, 0 0 100px #fff, 0 0 20px #fff;
+  }
+  50% {
+    text-shadow: 0 0 50px #fff, 0 0 150px #fff, 0 0 50px #fff;
+  }
+}
+
+.header-text {
+  margin: 0;
+  color: white;
+  animation: neon 1.5s ease-in-out infinite alternate;
+  text-align: center;
+}
+.navbackground {
+  background-color: whitesmoke;
+}
+.Identify-background {
+  width: 500px;
+  height: 80px;
+  text-align: center;
+  margin: auto;
+  border: 5px solid #212529;
+}
+.webcam {
+  margin: 10px auto;
+  width: 1900px;
+  height: 870px;
+  border: 3px solid black;
+  border-radius: 1%;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+.home-img{
+  padding-bottom:6px;
+}
+.header {
+  height: 100px;
+  display: block;
+  clear: both;
+  width: 100%;
+  height: 100px;
+}
+.nav-title {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  margin-left: 100px;
+}
+.navbar {
+  background-color:gainsboro;
+  padding: 30px;
+  height: 100px;
+  border-bottom: 1px black solid;
+}
+
+.home-frame {
+  display: flex;
+  align-items: center;
+}
+.home-ul {
+  display: flex;
+  font-family: "Comic Sans MS";
+  padding-top: 8px;
+}
+li {
+  list-style: none;
+}
+
+.site-nav__ite {
+  font-size: x-large;
+  padding-left: 20px;
+  margin-left: 10px;
+  display: inline;
+  font-family: "Chocolate Classical Sans", sans-serif;;
+  font-weight: 900;
+}
+
+/* 以上首頁表頭 */
+.train_set{
+  display: flex;
+  justify-content:center ;
+}
+.train_head_text{
+  font-weight: 600;
+  
+}
+.w-500 {
+  height: 500px;
+  width: 100%;
+}
+@keyframes pinpon {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100px;
+  }
+  100%{
+    left: 200px;
+  }
+}
+.train_grid{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  
+}
+.train{
+  display:flex;
+  flex-direction: column;
+  width: 303px;
+  text-align: center;
+
+}
+.teain_text{
+  font-weight: 700;
+  border: #0e212c 2px solid;
+  border-radius:10px;
+  background-color: orange;
+}
+
+.train_1{
+  width: 300px;
+  height:200px;
+}
+h5.train_text1:hover{
+  transform: scaleX(1.5);
+}
+/* 以上首頁內容 */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-list {
+  list-style-type: none;
+  padding: 0;
+}
+.message-list li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.message-list li .timestamp {
+  display: block;
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 5px;
+}
+.message-form {
+  display: flex;
+  flex-direction: column;
+}
+.message-form input, .message-form textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.message-form button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.message-form button:hover {
+  background-color: #45a049;
+}
+/* 以上是留言板 */
+
+
+.goTop {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  border:3px solid orangered;
+  border-radius: 50%;
+  padding-top: 6px;
+  padding-right: 5px;
+  background-color: rgb(220, 96, 110);
+}
+.goTopBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+/* 以上是TOP */
+.footer{
+  display: block;
+  flex-direction: column;
+  width: 100%;
+  height: 200px;
+  background-color:gray;
+  
+}
+.footmas{
+  text-align: center;
+}
+/* 以上頁尾 */
+.section{
+  
+}
+.breadcrumb_1{
+  background-color: salmon;
+  font-size: 0.875rem;
+  color: #808080;
+  border-radius: 0;
+  padding: 10px 10px;
+}
+.container{
+  max-width: 1320px;
+
+}
+ul.breadcrumb_1{
+  background: salmon;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #808080;
+} 
+.p-0{
+  padding-bottom:0 !important; 
+}  
+.mb-0{
+  margin: 0 !important;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>健身房會員系統</title>
+  <link rel="stylesheet" href="all.css" />
+  <link rel="icon" href="/views/favicon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header class="header">
+    <nav class="navbar">
+      <div class="home-frame">
+        <a class="nav-title" href="/views/index.html"><img src="/views/sport.jpg" alt="#" title="首頁圖" width="30"
+            class="home-img" />Powerful fitness</a>
+        <div class="home-ul">
+          <ul class="home-ul mr-auto">
+            <li><a href="#" class="site-nav__ite">關於我們</a></li>
+            <li><a href="#" class="site-nav__ite">最新消息</a></li>
+            <li><a href="#" class="site-nav__ite">會員中心</a></li>
+            <li><a href="#" class="site-nav__ite">健身課程</a></li>
+            <li><a href="./about.html" class="site-nav__ite">健身諮詢</a></li>
+        </div>
+        </ul>
+      </div>
+    </nav>
+
+  </header>
+  <section class="section">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../image/sport_1.jpg" class="w-500" alt="運動照">
+        </div>
+        <div class="carousel-item">
+          <img src="../image/sport_2.jpg" class="w-500" alt="運動照">
+        </div>
+        <div class="carousel-item">
+          <img src="../image/sport_3.jpg" class="w-500" alt="運動照">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="train_set">
+    <h2 class="train_head_text">健身訓練</h2>
+  </div>
+  <div class="train_grid">
+    <div class="train">
+      <hr>
+      <h3 class="teain_text">機械式器材</h3><img src="../image/sport_5.jpg" alt="" class="train_1">
+      <h5 class="train_text1">使用不同的機械式器材來針對不同部位做訓練，機械式器材通常會有保護裝置，相對比較安全。</h5>
+    </div>
+    <div class="train">
+      <hr>
+      <h3 class="teain_text">自由重量</h3><img src="../image/sport_6.jpg" alt="" class="train_1">
+      <h5 class="train_text1">自由重量的訓練動作彈性幅度大、比較不受限，可以衍生出多種訓練動作，但要注意動作有沒有晃動、不標準，怕一直做錯動作，而導致受傷。</h5>
+    </div>
+    <div class="train">
+      <hr>
+      <h3 class="teain_text">有氧運動</h3><img src="../image/sport_7.jpg" alt="" class="train_1">
+      <h5 class="train_text1">就是當你的心率到達最大心跳率的50%­-90%時，可以認定為正在進行著有氧訓練，如散步、舞蹈、籃球等。</h5>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <h2>問題歡迎留言</h2>
+    <ul class="message-list" id="messageList">
+      <!-- 留言內容將顯示在這裡 -->
+    </ul>
+    <form class="message-form" id="messageForm">
+      <input type="text" id="userName" placeholder="你的名字" required>
+      <input type="tel" id="userPhone" placeholder="你的電話號碼" required>
+      <textarea id="userMessage" placeholder="你的留言" required></textarea>
+      <button type="submit">發送</button>
+    </form>
+  </div>
+
+
+
+  <div class="goTop">
+    <a href="#" class="goTopBtn jq-goTop">
+      <i class="fas fa-arrow-alt-circle-up fa-3x">
+        <h4>TOP</h4>
+      </i>
+    </a>
+  </div>
+  <footer class="footer">
+
+    <div class="footmas">
+      <p>106台北市大安區復興南路一段390號2樓<br>02-6631-6588</p>
+    </div>
+    <div class="footmas">
+      <p><br><br></p>
+    </div>
+    <div class="footmas">
+      <p><br><br>© 2024 AIML05. All rights reserved.</p>
+    </div>
+
+  </footer>
+  <script>
+    document.getElementById('messageForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const userName = document.getElementById('userName').value;
+      const userPhone = document.getElementById('userPhone').value;
+      const userMessage = document.getElementById('userMessage').value;
+      const messageList = document.getElementById('messageList');
+      const currentDateTime = new Date().toLocaleString();
+
+      const newMessage = document.createElement('li');
+      newMessage.innerHTML = `
+            <strong>${userName}</strong> (${userPhone}): ${userMessage}
+            <span class="timestamp">${currentDateTime}</span>
+        `;
+
+      messageList.appendChild(newMessage);
+
+      // 清空表單
+      document.getElementById('userName').value = '';
+      document.getElementById('userPhone').value = '';
+      document.getElementById('userMessage').value = '';
+    });
+  </script>
+</body>
+
+</html>
