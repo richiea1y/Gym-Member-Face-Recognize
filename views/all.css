@@ -246,25 +246,28 @@ h5.train_text1:hover{
 .section{
   display: block;
     unicode-bidi: isolate;
-
+    
 }
 .breadcrumb_1{
-  background-color: salmon;
+  background-color:salmon;
   font-size: 0.875rem;
   color: #808080;
   border-radius: 0;
-  padding: 10px 10px;
+  padding: 5px 10px;
 }
 .container{
   max-width: 1320px;
-
+  border-radius: 8px;
+  background-color:whitesmoke;
 }
 ul.breadcrumb_1{
   background: salmon;
-  border-radius: 8px;
   font-size: 1.2rem;
   color: #808080;
+  display: flex;
+  align-items: center;
 } 
+
 .p-0{
   padding-bottom:0 !important; 
 }  
