@@ -274,3 +274,56 @@ ul.breadcrumb_1{
 .mb-0{
   margin: 0 !important;
 }
+.test1{
+  height: 800px;
+}
+main{
+  width: 1200px;
+  margin: auto;
+}
+.about_animation{
+max-width: 400px;
+display: block;
+animation: ani1 1.5s ease-in infinite alternate;
+}
+.about_img1{
+  width: 400px;
+  height: 300px;
+  
+}
+@keyframes ani1{
+  0%{
+      left:0;
+  }
+  100%{
+      left:100px;
+  }
+}
+.login_bg{
+  background-image: url(../image/back3.jpg);
+ 
+}
+.login_main{
+background-color: #f9f9f9;
+  max-width: 1000px;
+  height: 1000px;
+  padding: 200px 0 60px;
+  line-height: 1.3em;
+
+}
+.login_center{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+.login_h{
+  font-family: "標楷體";
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.login_form{
+  
+  display: flex;
+  justify-content: center;
+}
