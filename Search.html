@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>會員登入</title>
+</head>
+<body>
+    <h2>請輸入您的姓名以查詢</h2>
+    <form id="loginForm">
+        <label for="memberName">姓名：</label>
+        <input type="text" id="memberName" name="member_name" required>
+        <button type="submit">登入</button>
+    </form>
+
+    <div id="memberInfo"></div>
+
+    <script>
+        // 處理表單提交事件
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表單默認提交行為
+
+            const memberName = document.getElementById('memberName').value;
+
+            fetch(`http://localhost:3000/get_member?name=${encodeURIComponent(memberName)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    displayMemberInfo(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // 顯示會員資料
+        function displayMemberInfo(member) {
+            const memberInfoDiv = document.getElementById('memberInfo');
+            memberInfoDiv.innerHTML = `
+                <h3>會員資料</h3>
+                <p>姓名: ${member.member_name}</p>
+                <p>性別: ${member.member_gender}</p>
+                <p>電話: ${member.member_phone}</p>
+                <p>年紀: ${member.member_age}</p>
+                <p>居住城市: ${member.member_city}</p>
+                <p>圖片: <img src="${member.member_image}" alt="Member Image" width="100"></p>
+                <p>編碼: ${JSON.stringify(member.encoding)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
+
