@@ -244,7 +244,9 @@ h5.train_text1:hover{
 }
 /* 以上頁尾 */
 .section{
-  
+  display: block;
+    unicode-bidi: isolate;
+
 }
 .breadcrumb_1{
   background-color: salmon;
