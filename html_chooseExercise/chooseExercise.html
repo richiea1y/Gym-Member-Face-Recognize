@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+        }
+        .item {
+            margin-bottom: 20px;
+            margin-right: 30%;
+            float: right;
+        }
+        #cart {
+            width: 1500px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-left: 20%;
+        }
+    </style>
+</head>
+
+<body>        
+    <div id="cart">
+        <h1>客製化訓練表</h1>
+        <ol id="cart-items">
+        </ol>
+        <button id="submitBtn">送出</button>
+        <button onclick="reset()">重設</button>
+    </div>
+    
+    <div>
+        <div class="item">
+            <h2>舉啞鈴</h2>
+            <label for="quantity1">組數：</label>
+            <input type="number" id="quantity1" name="quantity1" value="1" min="1"> 回合
+            <button onclick="addToCart('舉啞鈴', 'quantity1')">加入訓練表</button>
+        </div>
+    
+        <div class="item">
+            <h2>仰臥起坐</h2>
+            <label for="quantity2">組數：</label>
+            <input type="number" id="quantity2" name="quantity2" value="1" min="1"> 回合
+            <button onclick="addToCart('仰臥起坐', 'quantity2')">加入訓練表</button>
+        </div>
+
+        <div class="item">
+            <h2>伏地挺身</h2>
+            <label for="quantity3">組數：</label>
+            <input type="number" id="quantity3" name="quantity3" value="1" min="1"> 回合
+            <button onclick="addToCart('伏地挺身', 'quantity3')">加入訓練表</button>
+        </div>
+
+        <div class="item">
+            <h2>交互蹲跳</h2>
+            <label for="quantity4">組數：</label>
+            <input type="number" id="quantity4" name="quantity4" value="1" min="1"> 回合
+            <button onclick="addToCart('交互蹲跳', 'quantity4')">加入訓練表</button>
+        </div>
+    </div>
+    
+    
+    <script>
+        function addToCart(itemName, quantityInputId) {
+            var quantity = document.getElementById(quantityInputId).value;
+            var cartItems = document.getElementById('cart-items');
+            
+            // Create a new list item for the cart
+            var li = document.createElement('li');
+            li.textContent = itemName + "\t" + quantity + "\t" + "組";
+            
+            // Append the new list item to the cart
+            cartItems.appendChild(li);
+        }
+
+        function reset() {
+            var cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+        }
+
+        // Function to handle sending data to server
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            var cartItems = document.getElementById('cart-items').getElementsByTagName('li');
+            var data = [];
+            for (var i = 0; i < cartItems.length; i++) {
+                var item = {};
+                var parts = cartItems[i].textContent.split("\t");
+                item.itemName = parts[0];
+                item.quantity = parseInt(parts[1]);
+                data.push(item);
+            }
+            saveDataToJsonFile(data);
+        });
+
+        // Function to save data to JSON file
+        function saveDataToJsonFile(data) {
+            var jsonData = JSON.stringify(data, null, 2);
+            var blob = new Blob([jsonData], { type: "application/json" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'cart_data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Save to file system
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            var file = fileSystem.CreateTextFile("cart_data.json", true);
+            file.write(jsonData);
+            file.Close();
+        }
+    </script>
+    
+</body>
+</html>
