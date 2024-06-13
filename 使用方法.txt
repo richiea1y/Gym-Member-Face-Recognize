@@ -1,0 +1,23 @@
+使用方法：
+
+需先安裝face_recognition套件
+開啟Anaconda -> 選擇Environment -> py_39_cv -> Open Terminal -> pip install face_recognition
+
+
+face_recognition.ipynb
+臉部特徵辨識程式
+
+先執行此程式，會產生member.json檔，此檔案會儲存臉部影像特徵與姓名及會員狀態至json檔裡
+
+face_detection.ipynb
+人臉辨識程式
+
+程式主要進行人臉辨識，若人臉影像和會員資料有存於member.json,會顯示姓名及對應會員狀態(綠框)
+非會員則顯示unknown，Register(紅框)
+拍攝臉部照片
+按任意鍵後會詢問：偵測到未知人臉。是否註冊為新會員？ (yes/no)
+1.1輸入yes：會提示："請輸入您的姓名: " 
+接著詢問 "是否加入會員? (yes/no):
+2.1輸入yes -> 提示："新會員註冊成功！照片已儲存。"  
+2.2輸入no -> 提示："照片已刪除。" -> 重新捕捉影像
+1.2輸入no -> -> 提示："照片已刪除。" -> 重新捕捉影像
