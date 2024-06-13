@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Member</title>
+</head>
+<body>
+    <h2>請輸入您的資料</h2>
+    <form id="userForm">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="member_name" required><br><br>
+
+        <label for="gender">性別：</label>
+        <select id="gender" name="member_gender" required>
+            <option value="male">男</option>
+            <option value="female">女</option>
+        </select><br><br>
+
+        <label for="phone">手機：</label>
+        <input type="text" id="phone" name="member_phone" required><br><br>
+
+        <label for="age">年紀：</label>
+        <input type="number" id="age" name="member_age" required><br><br>
+
+        <label for="city">居住城市：</label>
+        <input type="text" id="city" name="member_city" required><br><br>
+
+        <label for="image">圖片:</label>
+        <input type="file" id="image" name="member_image"><br><br>
+
+        <label for="encoding">編碼:</label>
+        <textarea id="encoding" name="encoding" required></textarea><br><br>
+
+        <button type="submit">提交</button>
+    </form>
+
+    <h2>查詢成員資料</h2>
+    <form id="searchForm">
+        <label for="searchName">姓名：</label>
+        <input type="text" id="searchName" name="searchName" required>
+        <button type="submit">查詢</button>
+    </form>
+
+    <div id="memberInfo"></div>
+
+    <script>
+        // 提交新成員信息
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('http://localhost:3000/update_member', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Member updated successfully!');
+                    updateMemberInfo(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // 查詢成員信息
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchName = document.getElementById('searchName').value;
+
+            fetch(`http://localhost:3000/get_member?name=${encodeURIComponent(searchName)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    updateMemberInfo(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // 更新成員信息顯示
+        function updateMemberInfo(member) {
+            const memberInfoDiv = document.getElementById('memberInfo');
+            memberInfoDiv.innerHTML = `
+                <p>Gender: ${member.member_gender}</p>
+                <p>Name: ${member.member_name}</p>
+                <p>Phone: ${member.member_phone}</p>
+                <p>Age: ${member.member_age}</p>
+                <p>City: ${member.member_city}</p>
+                <p>Image: <img src="${member.member_image}" alt="Member Image" width="100"></p>
+                <p>Encoding: ${JSON.stringify(member.encoding)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
