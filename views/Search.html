@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>會員登入</title>
 </head>
+
 <body>
     <h2>請輸入您的姓名以查詢</h2>
     <form id="loginForm">
@@ -15,21 +17,21 @@
 
     <script>
         // 處理表單提交事件
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
             event.preventDefault(); // 防止表單默認提交行為
 
             const memberName = document.getElementById('memberName').value;
 
             fetch(`http://localhost:3000/get_member?name=${encodeURIComponent(memberName)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                } else {
-                    displayMemberInfo(data);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        displayMemberInfo(data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         });
 
         // 顯示會員資料
@@ -48,5 +50,5 @@
         }
     </script>
 </body>
-</html>
 
+</html>
