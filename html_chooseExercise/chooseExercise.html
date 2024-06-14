@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>客製化訓練表</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,54 +35,71 @@
 
     <div>
         <div class="item">
-            <h2>舉啞鈴 (5cal/ea)</h2>
+            <h2 id="item1Name"></h2>
             <label for="quantity1">組數：</label>
             <input type="number" class="quantity-input" id="quantity1" value="10" min="10" step="10"> 回合
-            <button class="add-to-cart-btn" data-item="舉啞鈴" data-quantity-input="quantity1">加入訓練表</button>
+            <button class="add-to-cart-btn" data-item="item1" data-quantity-input="quantity1">加入訓練表</button>
         </div>
-
+        
         <div class="item">
-            <h2>仰臥起坐 (5cal/ea)</h2>
+            <h2 id="item2Name"></h2>
             <label for="quantity2">組數：</label>
             <input type="number" class="quantity-input" id="quantity2" value="10" min="10" step="10"> 回合
-            <button class="add-to-cart-btn" data-item="仰臥起坐" data-quantity-input="quantity2">加入訓練表</button>
+            <button class="add-to-cart-btn" data-item="item2" data-quantity-input="quantity2">加入訓練表</button>
         </div>
-
+        
         <div class="item">
-            <h2>伏地挺身 (10cal/ea)</h2>
+            <h2 id="item3Name"></h2>
             <label for="quantity3">組數：</label>
             <input type="number" class="quantity-input" id="quantity3" value="10" min="10" step="10"> 回合
-            <button class="add-to-cart-btn" data-item="伏地挺身" data-quantity-input="quantity3">加入訓練表</button>
+            <button class="add-to-cart-btn" data-item="item3" data-quantity-input="quantity3">加入訓練表</button>
         </div>
-
+        
         <div class="item">
-            <h2>交互蹲跳 (20cal/ea)</h2>
+            <h2 id="item4Name"></h2>
             <label for="quantity4">組數：</label>
             <input type="number" class="quantity-input" id="quantity4" value="10" min="10" step="10"> 回合
-            <button class="add-to-cart-btn" data-item="交互蹲跳" data-quantity-input="quantity4">加入訓練表</button>
+            <button class="add-to-cart-btn" data-item="item4" data-quantity-input="quantity4">加入訓練表</button>
         </div>
     </div>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
-            const resetButton = document.getElementById("resetBtn");
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+    const resetButton = document.getElementById("resetBtn");
 
-            addToCartButtons.forEach(button => {
-                button.addEventListener("click", addToCart);
-            });
+    addToCartButtons.forEach(button => {
+        button.addEventListener("click", addToCart);
+    });
 
-            resetButton.addEventListener("click", reset);
-            document.getElementById("submitBtn").addEventListener("click", saveData);
-        });
+    resetButton.addEventListener("click", reset);
+    document.getElementById("submitBtn").addEventListener("click", saveData);
 
-        const itemCalories = {
-            "舉啞鈴": 5,
-            "仰臥起坐": 5,
-            "伏地挺身": 10,
-            "交互蹲跳": 20
-        };
+    // Set exercise names dynamically
+    document.getElementById("item1Name").textContent = item1 + ` (${calory1}cal/ea)`;
+    document.getElementById("item2Name").textContent = item2 + ` (${calory2}cal/ea)`;
+    document.getElementById("item3Name").textContent = item3 + ` (${calory3}cal/ea)`;
+    document.getElementById("item4Name").textContent = item4 + ` (${calory4}cal/ea)`;
+});
+
+    // Define variables for exercise names and their corresponding calories
+    const item1 = "舉啞鈴";
+    const calory1 = 5;
+    const item2 = "仰臥起坐";
+    const calory2 = 5;
+    const item3 = "伏地挺身";
+    const calory3 = 10;
+    const item4 = "交互蹲跳";
+    const calory4 = 20;
+
+    // Create an object to store exercise names and their corresponding calories
+    const itemCalories = {
+        [item1]: calory1,
+        [item2]: calory2,
+        [item3]: calory3,
+        [item4]: calory4
+    };
 
         function addToCart() {
             const itemName = this.getAttribute("data-item");
@@ -99,7 +116,7 @@
         }
 
         function reset() {
-            document.getElementById("cart-items").innerHTML = "";
+            document.getElementById("cart-items").textContent = "";
             updateTotalCal();
         }
 
