@@ -50,10 +50,14 @@ ul ol {
 }
 .webcam {
   margin: 10px auto;
-  width: 1900px;
+  width: 1500px;
   height: 870px;
   border: 3px solid black;
   border-radius: 1%;
+}
+
+.webcam-w{
+  margin: 10px auto;
 }
 
 a:hover,
