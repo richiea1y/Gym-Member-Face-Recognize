@@ -297,13 +297,15 @@ main {
     left: 100px;
   }
 }
+
+
 .login_bg {
   background-image: url(../image/back3.jpg);
 }
 .login_main {
   background-color: white;
   max-width: 1000px;
-  height: 1200px;
+  height: 1300px;
   padding: 200px 0 60px;
   line-height: 1.3em;
 }
@@ -326,6 +328,7 @@ main {
   color: white;
   background-color: black;
   padding-top: 20px;
+  margin-bottom:20px ;
 }
 
 .login_form {
@@ -365,3 +368,4 @@ font-size: 30px;
   background-color:#fff;
   border:2px #003C9D solid;
 }
+/* 以上登入頁面 */
