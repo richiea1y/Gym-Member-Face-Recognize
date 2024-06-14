@@ -16,12 +16,12 @@ app.use(cors({
 }));
 
 // 設置靜態文件目錄
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads2', express.static(path.join(__dirname, 'uploads2'))); // 更改uploads為uploads2
 
 // 設置 Multer 存儲選項
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, 'uploads2/'); // 更改uploads為uploads2
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -59,8 +59,8 @@ wss.on('connection', ws => {
 
 // 處理成員信息更新
 app.post('/update_member', upload.single('member_image'), (req, res) => {
-    console.log('req.body:', req.body); // 打印表单数据
-    console.log('req.file:', req.file); // 打印上传的文件信息
+    console.log('req.body:', req.body); // 打印表單
+    console.log('req.file:', req.file); // 打印上傳的文件訊息
     const {
         member_gender,
         member_name,
@@ -70,7 +70,7 @@ app.post('/update_member', upload.single('member_image'), (req, res) => {
         encoding
     } = req.body;
 
-    const member_image = req.file ? `/uploads/${req.file.filename}` : null;
+    const member_image = req.file ? `/uploads2/${req.file.filename}` : null; // 更改uploads為uploads2
 
     const insertQuery = `
         INSERT INTO gym_member (member_gender, member_name, member_phone, member_age, member_city, member_image, encoding)
