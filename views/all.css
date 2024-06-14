@@ -57,7 +57,8 @@ ul ol {
 }
 
 .webcam-w{
-  margin: 10px auto;
+  display: flex;
+  justify-content: center;
 }
 
 a:hover,
