@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="all.css" />
+    <title>辨識畫面</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbackground">
+        <div class="webcam-head">
+          <h2 class="header-text">請辨識身份</h2>
+        </div>
+      </nav>
+    </header>
+    <div class="Identify-background">識別狀態</div>
+    <div class="webcam">
+      <div class="webcam-w"><video id="webcam" width="1900" height="870" autoplay></video></div>      
+    </div>
+  
+    <script>
+      // 獲取視頻元素
+      const video = document.getElementById("webcam");
+
+      // 訪問用戶攝像頭
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            // 將攝像頭的影像流傳遞給視頻元素
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            console.error("訪問攝像頭出錯：", error);
+          });
+      } else {
+        alert("您的瀏覽器不支持 getUserMedia");
+      }
+    </script>
+  </body>
+</html>

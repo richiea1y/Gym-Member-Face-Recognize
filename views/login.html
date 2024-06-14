@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>會員登入</title>
+</head>
+<body>
+    <h2>請輸入您的帳號和密碼以登入</h2>
+    <form id="loginForm">
+        <label for="gymAccount">帳號：</label>
+        <input type="text" id="gymAccount" name="gym_account" required>
+        <br>
+        <label for="gymPassword">密碼：</label>
+        <input type="password" id="gymPassword" name="gym_password" required>
+        <br>
+        <button type="submit">登入</button>
+    </form>
+
+    <div id="memberInfo"></div>
+
+    <script>
+        // 處理表單提交事件
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表單默認提交行為
+
+            const gymAccount = document.getElementById('gymAccount').value;
+            const gymPassword = document.getElementById('gymPassword').value;
+
+            fetch(`http://localhost:3000/get_member?account=${encodeURIComponent(gymAccount)}&password=${encodeURIComponent(gymPassword)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    displayMemberInfo(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // 顯示會員資料
+        function displayMemberInfo(member) {
+            const memberInfoDiv = document.getElementById('memberInfo');
+            memberInfoDiv.innerHTML = `
+                <h3>會員資料</h3>
+                <p>帳號: ${member.gym_account}</p>
+                <p>姓名: ${member.member_name}</p>
+                <p>性別: ${member.member_gender}</p>
+                <p>電話: ${member.member_phone}</p>
+                <p>年紀: ${member.member_age}</p>
+                <p>居住城市: ${member.member_city}</p>
+                <p>圖片: <img src="${member.member_image}" alt="Member Image" width="100"></p>
+                <p>編碼: ${JSON.stringify(member.encoding)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
