@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+        }
+        .item {
+            margin-bottom: 20px;
+            margin-right: 30%;
+            float: right;
+        }
+        #cart {
+            width: 1500px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-left: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cart">
+        <h1>客製化訓練表</h1>
+        <ol id="cart-items"></ol>
+        <p id="totalCal">您將燃燒的卡路里：0 卡</p>
+        <button id="submitBtn">送出</button>
+        <button id="resetBtn">重設</button>
+    </div>
+
+    <div>
+        <div class="item">
+            <h2>舉啞鈴 (5cal/ea)</h2>
+            <label for="quantity1">組數：</label>
+            <input type="number" class="quantity-input" id="quantity1" value="10" min="10" step="10"> 回合
+            <button class="add-to-cart-btn" data-item="舉啞鈴" data-quantity-input="quantity1">加入訓練表</button>
+        </div>
+
+        <div class="item">
+            <h2>仰臥起坐 (5cal/ea)</h2>
+            <label for="quantity2">組數：</label>
+            <input type="number" class="quantity-input" id="quantity2" value="10" min="10" step="10"> 回合
+            <button class="add-to-cart-btn" data-item="仰臥起坐" data-quantity-input="quantity2">加入訓練表</button>
+        </div>
+
+        <div class="item">
+            <h2>伏地挺身 (10cal/ea)</h2>
+            <label for="quantity3">組數：</label>
+            <input type="number" class="quantity-input" id="quantity3" value="10" min="10" step="10"> 回合
+            <button class="add-to-cart-btn" data-item="伏地挺身" data-quantity-input="quantity3">加入訓練表</button>
+        </div>
+
+        <div class="item">
+            <h2>交互蹲跳 (20cal/ea)</h2>
+            <label for="quantity4">組數：</label>
+            <input type="number" class="quantity-input" id="quantity4" value="10" min="10" step="10"> 回合
+            <button class="add-to-cart-btn" data-item="交互蹲跳" data-quantity-input="quantity4">加入訓練表</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+            const resetButton = document.getElementById("resetBtn");
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener("click", addToCart);
+            });
+
+            resetButton.addEventListener("click", reset);
+            document.getElementById("submitBtn").addEventListener("click", saveData);
+        });
+
+        const itemCalories = {
+            "舉啞鈴": 5,
+            "仰臥起坐": 5,
+            "伏地挺身": 10,
+            "交互蹲跳": 20
+        };
+
+        function addToCart() {
+            const itemName = this.getAttribute("data-item");
+            const quantityInputId = this.getAttribute("data-quantity-input");
+            const quantity = parseInt(document.getElementById(quantityInputId).value);
+            const totalCal = quantity * itemCalories[itemName];
+
+            const cartItems = document.getElementById('cart-items');
+            const li = document.createElement('li');
+            li.textContent = `${itemName} \t ${quantity} \t 組 \t 卡路里： ${totalCal}`;
+            cartItems.appendChild(li);
+
+            updateTotalCal();
+        }
+
+        function reset() {
+            document.getElementById("cart-items").innerHTML = "";
+            updateTotalCal();
+        }
+
+        function updateTotalCal() {
+            const cartItems = document.getElementById('cart-items').getElementsByTagName('li');
+            let totalCal = 0;
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const parts = cartItems[i].textContent.split("\t");
+                const calory = parseFloat(parts[3].substring(5));
+                totalCal += calory;
+            }
+
+            const totalCalElement = document.getElementById('totalCal');
+            totalCalElement.style.color = totalCal > 1000 ? 'red' : 'black';
+            totalCalElement.textContent = `您將燃燒的卡路里：${totalCal.toFixed(2)} 卡`;
+        }
+
+        function saveData() {
+            const cartItems = document.getElementById('cart-items').getElementsByTagName('li');
+            const data = [];
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const item = {};
+                const parts = cartItems[i].textContent.split("\t");
+                item.itemName = parts[0];
+                item.quantity = parseInt(parts[1]);
+                item.calory = parseFloat(parts[3].substring(5));
+                data.push(item);
+            }
+
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'cart_data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Clear the cart
+            reset();
+        }
+    </script>
+
+</body>
+</html>

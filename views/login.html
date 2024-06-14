@@ -38,26 +38,38 @@
                 <div class="login_center">
                     <h2 class="login_h">會員中心</h2>
                 </div>
+                <div class="login_m">
+                    <p>歡迎來到會員中心，請登入帳號密碼</p>
+                </div>
                 <ul class="nav justify-content-center ">
-                    <li class="nav-item">
+                    <li class="login_li">
                         <a class="nav-link active" aria-current="page" href="#">會員登入</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="">
                         <a class="nav-link" href="#">會員註冊</a>
                     </li>
                 </ul>
                 <hr>
                 <div class="login_form">
                     <form id="loginForm">
-                        <label for="gymAccount">帳號：</label>
+                        <label for="gymAccount" class="login_label">帳號 ⮕</label>
                         <br>
-                        <input type="text" id="gymAccount" name="gym_account" required />
+                        <input type="text" class="login_input" id="gymAccount" name="gym_account" placeholder="請輸入帳號"
+                            required />
                         <br />
-                        <label for="gymPassword">密碼：</label>
+                        <label for="gymPassword" class="login_label">密碼 ⮕</label>
                         <br>
-                        <input type="password" id="gymPassword" name="gym_password" required />
-                        <br />
-                        <button type="submit">登入</button>
+                        <input type="password" class="login_input" id="gymPassword" name="gym_password"
+                            placeholder="請輸入密碼" required />
+
+                        <div class="">
+                            <input type="text" id="captchaInput" placeholder="輸入驗證碼"><canvas
+                                id="captchaCanvas"></canvas>
+                        </div>
+                        <br>
+                        <p id="result"></p>
+                        <br>
+                        <input type="button" value="登入" class="button_logic">
                     </form>
                     <div id="memberInfo"></div>
                 </div>
@@ -116,6 +128,55 @@
                 <p>編碼: ${JSON.stringify(member.encoding)}</p>
             `;
             }
+            document.addEventListener("DOMContentLoaded", function () {
+                const canvas = document.getElementById("captchaCanvas");
+                const ctx = canvas.getContext("2d");
+                const input = document.getElementById("captchaInput");
+                const result = document.getElementById("result");
+                let captchaText = "";
+
+                function generateCaptcha() {
+                    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    let text = "";
+                    for (let i = 0; i < 6; i++) {
+                        text += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    captchaText = text;
+                    drawCaptcha(text);
+                }
+
+                function drawCaptcha(text) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.font = "30px Arial";
+                    ctx.fillStyle = "#000";
+                    ctx.fillText(text, 10, 30);
+
+                    // Optionally add some lines for extra security
+                    for (let i = 0; i < 5; i++) {
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                        ctx.strokeStyle = "#ccc";
+                        ctx.stroke();
+                    }
+                }
+
+                input.addEventListener("blur", function () {
+                    if (input.value === captchaText) {
+                        result.textContent = "驗證成功";
+                        result.style.color = "green";
+                    } else {
+                        result.textContent = "驗證失敗，請重試。";
+                        result.style.color = "red";
+                    }
+                });
+
+                canvas.width = 150;
+                canvas.height = 40;
+                generateCaptcha();
+            });
+
+
         </script>
 </body>
 
