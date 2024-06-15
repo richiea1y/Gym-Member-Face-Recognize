@@ -55,7 +55,9 @@
             </div>
             <div class="exerciser_Calculate">
                 <div>計算次數</div>
-                <div id="total"></div>
+                <div id="total">
+                    <ol id="cart-total"></ol>
+                </div>
             </div>
         </div>
         <div>
@@ -183,8 +185,13 @@
 
             // Clear the cart
             reset();
-            function exerciserCalculate(){
+            
+            function addExerciserCalculate(){
+                const itemName = this.getAttribute("data-item");
+                const quantityInputId = this.getAttribute("data-quantity-input");
+                const quantity = parseInt(document.getElementById(quantityInputId).value);
 
+                const cartItems = document.getElementById('cart-total');
             }
         }
     </script>
