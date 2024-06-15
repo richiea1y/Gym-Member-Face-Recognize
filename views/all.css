@@ -369,3 +369,54 @@ font-size: 30px;
   border:2px #003C9D solid;
 }
 /* 以上登入頁面 */
+.item {
+  margin-bottom: 10px;
+  margin-right: 5%;
+  float: right;
+  
+}
+.cart {
+  width: 1300px;
+  height: 1000px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.exerciserBody {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+}
+.exerciser_webcam{
+  height: 500px;
+  width: 1000px;
+  border: #212529 2px solid;
+}
+.calBtn{
+  display: inline-block;
+  width: 350px;
+}
+.calSmallBtn{
+  border:  #212529 solid 2px;
+  border-radius: 10px;
+  background-color: #212529;
+  color: white;
+  width: 171px;
+  height: 50px;
+}
+.calSmallBtn:hover{
+  background-color: white;
+  color: black;
+}
+.calMidBtn{
+  margin-top: 5px;
+  border:  #212529 solid 2px;
+  border-radius: 10px;
+  background-color: #212529;
+  color: white;
+  width: 347px;
+  height: 50px;
+}
+.calMidBtn:hover{
+  background-color: white;
+  color: black;
+}
