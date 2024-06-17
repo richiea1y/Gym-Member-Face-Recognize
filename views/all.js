@@ -1,5 +1,6 @@
 $(function () {
     $('#toggleBtn').click(function () { 
-        $(".item").toggle();
+        $(".item").slideToggle(1000);
+        $(selector).removeClass(className);
     });
 });

@@ -24,109 +24,116 @@
             <div class="home-frame">
                 <a class="nav-title" href="/views/index.html"><img src="/views/sport.jpg" alt="#" title="首頁圖" width="30"
                         class="home-img" />Powerful fitness</a>
-                <div class="home-ul">
+                <div>
                     <ul class="home-ul mr-auto">
-                        <li><a href="about.html" class="site-nav__ite">關於我們</a></li>
+                        <li><a href="#" class="site-nav__ite">關於我們</a></li>
                         <li><a href="#" class="site-nav__ite">最新消息</a></li>
-                        <li><a href="#" class="site-nav__ite">會員中心</a></li>
-                </div>
-                </ul>
-            </div>
-        </nav>
-        <section class="section">
-            <div class="breadcrumb_1">
-                <div class="container">
-                    <ul class="breadcrumb_1 p-0  mb-0">
-                        <li><a href="./index.html">首頁</a>/</li>
-                        <li><a href="./about.html">關於我們</a>/</li>
-                        <li><a href="#">會員中心</a></li>
+                        <li><a href="./login.html" class="site-nav__ite">會員中心</a>
+                            <ul>
+                                <li><a href="./login.html">會員登入</a></li>
+                                <li><a href="#">會員註冊</a>
+                                <li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
+
             </div>
-        </section>
-        <div class="login_bg">
-            <main class="login_main">
-                <div class="login_center">
-                    <h2 class="login_h">會員中心</h2>
-                </div>
-                <div class="login_m">
-                    <p>歡迎來到會員中心，請登入帳號密碼</p>
-                </div>
-                <ul class="nav justify-content-center ">
-                    <li class="login_li">
-                        <a class="nav-link active" aria-current="page" href="#">會員登入</a>
-                    </li>
-                    <li class="">
-                        <a class="nav-link" href="#">會員註冊</a>
-                    </li>
+        </nav>
+    </header>
+    <section class="section">
+        <div class="breadcrumb_1">
+            <div class="container">
+                <ul class="breadcrumb_1 p-0  mb-0">
+                    <li><a href="./index.html">首頁</a>/</li>
+                    <li><a href="./about.html">關於我們</a>/</li>
+                    <li><a href="#">會員中心</a></li>
                 </ul>
-                <hr>
-                <div class="login_form">
-                    <form id="loginForm">
-                        <label for="gymAccount" class="login_label">帳號 ⮕</label>
-                        <br>
-                        <input type="text" class="login_input" id="gymAccount" name="gym_account" placeholder="請輸入帳號"
-                            required />
-                        <br />
-                        <label for="gymPassword" class="login_label">密碼 ⮕</label>
-                        <br>
-                        <input type="password" class="login_input" id="gymPassword" name="gym_password"
-                            placeholder="請輸入密碼" required />
-
-                        <div class="">
-                            <input type="text" id="captchaInput" placeholder="輸入驗證碼"><canvas
-                                id="captchaCanvas"></canvas>
-                        </div>
-                        <br>
-                        <p id="result"></p>
-                        <br>
-                        <input type="button" value="登入" class="button_logic">
-                    </form>
-                    <div id="memberInfo"></div>
-                </div>
-            </main>
+            </div>
         </div>
-        <footer class="footer">
-            <div class="footmas">
-                <p>106台北市大安區復興南路一段390號2樓<br>02-6631-6588</p>
+    </section>
+    <div class="login_bg">
+        <main class="login_main">
+            <div class="login_center">
+                <h2 class="login_h">會員中心</h2>
             </div>
-            <div class="footmas">
-                <p><br><br></p>
+            <div class="login_m">
+                <p>歡迎來到會員中心，請登入帳號密碼</p>
             </div>
-            <div class="footmas">
-                <p><br><br>© 2024 AIML05. All rights reserved.</p>
+            <ul class="nav justify-content-center ">
+                <li class="login_li">
+                    <a class="nav-link active" aria-current="page" href="#">會員登入</a>
+                </li>
+                <li class="">
+                    <a class="nav-link" href="#">會員註冊</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="login_form">
+                <form id="loginForm">
+                    <label for="gymAccount" class="login_label">帳號 ⮕</label>
+                    <br>
+                    <input type="text" class="login_input" id="gymAccount" name="gym_account" placeholder="請輸入帳號"
+                        required />
+                    <br />
+                    <label for="gymPassword" class="login_label">密碼 ⮕</label>
+                    <br>
+                    <input type="password" class="login_input" id="gymPassword" name="gym_password" placeholder="請輸入密碼"
+                        required />
+
+                    <div class="">
+                        <input type="text" id="captchaInput" placeholder="輸入驗證碼"><canvas id="captchaCanvas"></canvas>
+                    </div>
+                    <br>
+                    <p id="result"></p>
+                    <br>
+                    <input type="button" value="登入" class="button_logic">
+                </form>
+                <div id="memberInfo"></div>
             </div>
-        </footer>
-        <script>
-            // 處理表單提交事件
-            document
-                .getElementById("loginForm")
-                .addEventListener("submit", function (event) {
-                    event.preventDefault(); // 防止表單默認提交行為
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="footmas">
+            <p>106台北市大安區復興南路一段390號2樓<br>02-6631-6588</p>
+        </div>
+        <div class="footmas">
+            <p><br><br></p>
+        </div>
+        <div class="footmas">
+            <p><br><br>© 2024 AIML05. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // 處理表單提交事件
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault(); // 防止表單默認提交行為
 
-                    const gymAccount = document.getElementById("gymAccount").value;
-                    const gymPassword = document.getElementById("gymPassword").value;
+                const gymAccount = document.getElementById("gymAccount").value;
+                const gymPassword = document.getElementById("gymPassword").value;
 
-                    fetch(
-                        `http://localhost:3000/get_member?account=${encodeURIComponent(
-                            gymAccount
-                        )}&password=${encodeURIComponent(gymPassword)}`
-                    )
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if (data.error) {
-                                alert("Error: " + data.error);
-                            } else {
-                                displayMemberInfo(data);
-                            }
-                        })
-                        .catch((error) => console.error("Error:", error));
-                });
+                fetch(
+                    `http://localhost:3000/get_member?account=${encodeURIComponent(
+                        gymAccount
+                    )}&password=${encodeURIComponent(gymPassword)}`
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.error) {
+                            alert("Error: " + data.error);
+                        } else {
+                            displayMemberInfo(data);
+                        }
+                    })
+                    .catch((error) => console.error("Error:", error));
+            });
 
-            // 顯示會員資料
-            function displayMemberInfo(member) {
-                const memberInfoDiv = document.getElementById("memberInfo");
-                memberInfoDiv.innerHTML = `
+        // 顯示會員資料
+        function displayMemberInfo(member) {
+            const memberInfoDiv = document.getElementById("memberInfo");
+            memberInfoDiv.innerHTML = `
                 <h3>會員資料</h3>
                 <p>帳號: ${member.gym_account}</p>
                 <p>姓名: ${member.member_name}</p>
@@ -135,60 +142,60 @@
                 <p>年紀: ${member.member_age}</p>
                 <p>居住城市: ${member.member_city}</p>
                 <p>圖片: <img src="${member.member_image
-                    }" alt="Member Image" width="100"></p>
+                }" alt="Member Image" width="100"></p>
                 <p>編碼: ${JSON.stringify(member.encoding)}</p>
             `;
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const canvas = document.getElementById("captchaCanvas");
+            const ctx = canvas.getContext("2d");
+            const input = document.getElementById("captchaInput");
+            const result = document.getElementById("result");
+            let captchaText = "";
+
+            function generateCaptcha() {
+                const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                let text = "";
+                for (let i = 0; i < 6; i++) {
+                    text += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                captchaText = text;
+                drawCaptcha(text);
             }
-            document.addEventListener("DOMContentLoaded", function () {
-                const canvas = document.getElementById("captchaCanvas");
-                const ctx = canvas.getContext("2d");
-                const input = document.getElementById("captchaInput");
-                const result = document.getElementById("result");
-                let captchaText = "";
 
-                function generateCaptcha() {
-                    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    let text = "";
-                    for (let i = 0; i < 6; i++) {
-                        text += chars.charAt(Math.floor(Math.random() * chars.length));
-                    }
-                    captchaText = text;
-                    drawCaptcha(text);
+            function drawCaptcha(text) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "#000";
+                ctx.fillText(text, 10, 30);
+
+                // Optionally add some lines for extra security
+                for (let i = 0; i < 5; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.strokeStyle = "#ccc";
+                    ctx.stroke();
                 }
+            }
 
-                function drawCaptcha(text) {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.font = "30px Arial";
-                    ctx.fillStyle = "#000";
-                    ctx.fillText(text, 10, 30);
-
-                    // Optionally add some lines for extra security
-                    for (let i = 0; i < 5; i++) {
-                        ctx.beginPath();
-                        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-                        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-                        ctx.strokeStyle = "#ccc";
-                        ctx.stroke();
-                    }
+            input.addEventListener("blur", function () {
+                if (input.value === captchaText) {
+                    result.textContent = "驗證成功";
+                    result.style.color = "green";
+                } else {
+                    result.textContent = "驗證失敗，請重試。";
+                    result.style.color = "red";
                 }
-
-                input.addEventListener("blur", function () {
-                    if (input.value === captchaText) {
-                        result.textContent = "驗證成功";
-                        result.style.color = "green";
-                    } else {
-                        result.textContent = "驗證失敗，請重試。";
-                        result.style.color = "red";
-                    }
-                });
-
-                canvas.width = 150;
-                canvas.height = 40;
-                generateCaptcha();
             });
 
+            canvas.width = 150;
+            canvas.height = 40;
+            generateCaptcha();
+        });
 
-        </script>
+
+    </script>
 </body>
 
 </html>

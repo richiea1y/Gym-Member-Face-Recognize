@@ -116,6 +116,12 @@ li {
   font-family: "Chocolate Classical Sans", sans-serif;
   font-weight: 900;
 }
+.home-ul  ul{
+  display: none;
+}
+.home-ul>li:hover ul{
+  display: block;
+}
 
 /* 以上首頁表頭 */
 .train_set {
@@ -412,4 +418,4 @@ font-size: 30px;
   background-color: white;
   color: black;
 }
-/* 以上是訓練畫面 */
+/* 以上是訓練頁面 */
