@@ -15,8 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
-        <script src="../models/jquery-3.7.1.min.js"></script>
-        <script src="../models/all.js"></script>
+    <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./all.js"></script>
     <style>
 
 
@@ -31,7 +31,7 @@
                         class="home-img" />Powerful fitness</a>
                 <div class="home-ul">
                     <ul class="home-ul mr-auto">
-                        <li><a href="#" class="site-nav__ite">關於我們</a></li>
+                        <li><a href="./about.html" class="site-nav__ite">關於我們</a></li>
                         <li><a href="#" class="site-nav__ite">最新消息</a></li>
                         <li><a href="./login.html" class="site-nav__ite">會員中心</a></li>
                         <li><a href="#" class="site-nav__ite">訓練課表</a></li>
@@ -49,7 +49,7 @@
                 <input type="button" value="送出" class="calSmallBtn" id="submitBtn">
                 <input type="button" value="重設" class="calSmallBtn" id="resetBtn">
             </div>
-            <input type="button" value="計算次數" class="calMidBtn" id="totalBtn">
+
         </div>
         <div>
             <div class="exerciser_webcam">
@@ -63,29 +63,33 @@
             </div>
         </div>
         <div>
+            <div>
+                <input type="button" value="顯示/隱藏" class="calSmallBtn" id="toggleBtn">
+            </div>
+
             <div class="item">
-                <h5>舉啞鈴 (5cal/ea)</h5>
+                <p>舉啞鈴 (5cal/ea)</p>
                 <label for="quantity1">次數：</label>
                 <input type="number" class="quantity-input" id="quantity1" value="10" min="10" step="1"> 回合
                 <button class="add-to-cart-btn" data-item="舉啞鈴" data-quantity-input="quantity1">加入訓練表</button>
             </div>
 
             <div class="item">
-                <h5>仰臥起坐 (5cal/ea)</h5>
+                <p>仰臥起坐 (5cal/ea)</p>
                 <label for="quantity2">次數：</label>
                 <input type="number" class="quantity-input" id="quantity2" value="10" min="10" step="1"> 回合
                 <button class="add-to-cart-btn" data-item="仰臥起坐" data-quantity-input="quantity2">加入訓練表</button>
             </div>
 
             <div class="item">
-                <h5>伏地挺身 (10cal/ea)</h5>
+                <p>伏地挺身 (10cal/ea)</p>
                 <label for="quantity3">次數：</label>
                 <input type="number" class="quantity-input" id="quantity3" value="10" min="10" step="1"> 回合
                 <button class="add-to-cart-btn" data-item="伏地挺身" data-quantity-input="quantity3">加入訓練表</button>
             </div>
 
             <div class="item">
-                <h5>交互蹲跳 (20cal/ea)</h5>
+                <p>交互蹲跳 (20cal/ea)</p>
                 <label for="quantity4">次數：</label>
                 <input type="number" class="quantity-input" id="quantity4" value="10" min="10" step="1"> 回合
                 <button class="add-to-cart-btn" data-item="交互蹲跳" data-quantity-input="quantity4">加入訓練表</button>
@@ -110,6 +114,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
             const resetButton = document.getElementById("resetBtn");
+            const addExerciser = document.querySelectorAll(".add-to-cart-btn");
 
             addToCartButtons.forEach(button => {
                 button.addEventListener("click", addToCart);
@@ -117,6 +122,14 @@
 
             resetButton.addEventListener("click", reset);
             document.getElementById("submitBtn").addEventListener("click", saveData);
+
+            addExerciser.forEach(button => {
+                button.addEventListener("click", addExerciserCalculate);
+            });
+
+            resetButton.addEventListener("click", reset);
+            document.getElementById("submitBtn").addEventListener("click", saveData);
+
         });
 
         const itemCalories = {
@@ -143,6 +156,7 @@
         function reset() {
             document.getElementById("cart-items").innerHTML = "";
             updateTotalCal();
+            document.getElementById("cart-total").innerHTML = "";
         }
 
         function updateTotalCal() {
@@ -187,14 +201,17 @@
 
             // Clear the cart
             reset();
-            
-            function addExerciserCalculate(){
-                const itemName = this.getAttribute("data-item");
-                const quantityInputId = this.getAttribute("data-quantity-input");
-                const quantity = parseInt(document.getElementById(quantityInputId).value);
+        }
+        function addExerciserCalculate() {
+            const itemName = this.getAttribute("data-item");
+            const quantityInputId = this.getAttribute("data-quantity-input");
+            const quantity = parseInt(document.getElementById(quantityInputId).value);
 
-                const cartItems = document.getElementById('cart-total');
-            }
+            const cartItems = document.getElementById('cart-total');
+            const li = document.createElement('li');
+            li.textContent = `${itemName} \t ${quantity} \t 次`;
+            cartItems.appendChild(li);
+
         }
     </script>
 

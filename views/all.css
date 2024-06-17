@@ -372,11 +372,11 @@ font-size: 30px;
 .item {
   margin-bottom: 10px;
   margin-right: 5%;
-  float: right;
+  
   
 }
 .cart {
-  width: 1300px;
+  width: 400px;
   height: 1000px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -384,10 +384,10 @@ font-size: 30px;
 .exerciserBody {
   font-family: Arial, sans-serif;
   display: flex;
-  justify-content: space-between;
+  justify-content: space;
 }
 .exerciser_webcam{
-  height: 500px;
+  height: 600px;
   width: 1000px;
   border: #212529 2px solid;
 }
@@ -407,16 +407,9 @@ font-size: 30px;
   background-color: white;
   color: black;
 }
-.calMidBtn{
-  margin-top: 5px;
-  border:  #212529 solid 2px;
-  border-radius: 10px;
-  background-color: #212529;
-  color: white;
-  width: 347px;
-  height: 50px;
-}
+
 .calMidBtn:hover{
   background-color: white;
   color: black;
 }
+/* 以上是訓練畫面 */
