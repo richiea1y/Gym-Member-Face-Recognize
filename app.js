@@ -4,6 +4,10 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { Sequelize } from "sequelize";
 
+import indexRouter from "./routes/index.js";
+import usersRouter from "./routes/users.js";
+
+
 // 透過 new 建立 Sequelize 這個 class，而 sequelize 就是物件 instance
 export const sequelize = new Sequelize('mysql://root@localhost:3306', {});
 
@@ -18,6 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', indexRouter);
+app.use('users', usersRouter);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
+});
+
 //error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
@@ -27,13 +39,6 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-});
-
-app.post("/store-data", (req, res) => {
-    const jsonData = req.body;
-    // Here, you would typically store the jsonData in a database
-    console.log(jsonData);
-    res.send('Data received and stored');
 });
 
 app.listen(port, () => {
