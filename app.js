@@ -22,7 +22,12 @@ app.get("/", (req, res)=>{
     res.send("Hello");
 })
 
-
+app.post("/users/create", (req,res)=>{
+    const jsonData = req.body;
+    // Here, you would typically store the jsonData in a database
+    console.log(jsonData);
+    res.send('Data received and stored');
+})
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}...`);
