@@ -2,11 +2,16 @@ import express from "express";
 import axios from "axios";
 import path from "path";
 import { fileURLToPath } from 'url';
+import { Sequelize } from "sequelize";
+
+// 透過 new 建立 Sequelize 這個 class，而 sequelize 就是物件 instance
+export const sequelize = new Sequelize('mysql://root@localhost:3306', {});
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 const app = express();
 const port = 8887;
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
