@@ -1,5 +1,4 @@
-import Member from "../models/member";
-import { body, validationResult } from "express-vaildator";
+import Member from "../models/member.js";
 import asyncHandler from "express-async-handler";
 
 /*
