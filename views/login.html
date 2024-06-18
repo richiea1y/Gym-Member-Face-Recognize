@@ -26,7 +26,7 @@
                         class="home-img" />Powerful fitness</a>
                 <div>
                     <ul class="home-ul mr-auto">
-                        <li><a href="#" class="site-nav__ite">關於我們</a></li>
+                        <li><a href="./about.html" class="site-nav__ite">關於我們</a></li>
                         <li><a href="#" class="site-nav__ite">最新消息</a></li>
                         <li><a href="./login.html" class="site-nav__ite">會員中心</a>
                             <ul>
@@ -82,12 +82,13 @@
                         required />
 
                     <div class="">
-                        <input type="text" id="captchaInput" placeholder="輸入驗證碼"><canvas id="captchaCanvas"></canvas>
+                        <input type="text" id="captchaInput" placeholder="輸入驗證碼" required><canvas
+                            id="captchaCanvas"></canvas>
                     </div>
                     <br>
                     <p id="result"></p>
                     <br>
-                    <input type="button" value="登入" class="button_logic">
+                    <input type="button" value="登入" class="button_logic" id="loginButton">
                 </form>
                 <div id="memberInfo"></div>
             </div>
@@ -105,52 +106,9 @@
         </div>
     </footer>
     <script>
-        // 處理表單提交事件
-        document
-            .getElementById("loginForm")
-            .addEventListener("submit", function (event) {
-                event.preventDefault(); // 防止表單默認提交行為
-
-                const gymAccount = document.getElementById("gymAccount").value;
-                const gymPassword = document.getElementById("gymPassword").value;
-
-                fetch(
-                    `http://localhost:3000/get_member?account=${encodeURIComponent(
-                        gymAccount
-                    )}&password=${encodeURIComponent(gymPassword)}`
-                )
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.error) {
-                            alert("Error: " + data.error);
-                        } else {
-                            displayMemberInfo(data);
-                        }
-                    })
-                    .catch((error) => console.error("Error:", error));
-            });
-
-        // 顯示會員資料
-        function displayMemberInfo(member) {
-            const memberInfoDiv = document.getElementById("memberInfo");
-            memberInfoDiv.innerHTML = `
-                <h3>會員資料</h3>
-                <p>帳號: ${member.gym_account}</p>
-                <p>姓名: ${member.member_name}</p>
-                <p>性別: ${member.member_gender}</p>
-                <p>電話: ${member.member_phone}</p>
-                <p>年紀: ${member.member_age}</p>
-                <p>居住城市: ${member.member_city}</p>
-                <p>圖片: <img src="${member.member_image
-                }" alt="Member Image" width="100"></p>
-                <p>編碼: ${JSON.stringify(member.encoding)}</p>
-            `;
-        }
         document.addEventListener("DOMContentLoaded", function () {
             const canvas = document.getElementById("captchaCanvas");
             const ctx = canvas.getContext("2d");
-            const input = document.getElementById("captchaInput");
-            const result = document.getElementById("result");
             let captchaText = "";
 
             function generateCaptcha() {
@@ -169,7 +127,7 @@
                 ctx.fillStyle = "#000";
                 ctx.fillText(text, 10, 30);
 
-                // Optionally add some lines for extra security
+
                 for (let i = 0; i < 5; i++) {
                     ctx.beginPath();
                     ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
@@ -179,21 +137,43 @@
                 }
             }
 
-            input.addEventListener("blur", function () {
-                if (input.value === captchaText) {
-                    result.textContent = "驗證成功";
-                    result.style.color = "green";
-                } else {
-                    result.textContent = "驗證失敗，請重試。";
-                    result.style.color = "red";
-                }
-            });
+            const loginButton = document.getElementById("loginButton");
+            loginButton.addEventListener("click", handleLogin);
 
             canvas.width = 150;
             canvas.height = 40;
             generateCaptcha();
-        });
 
+            function handleLogin(event) {
+                event.preventDefault(); // 阻止表单默认提交行为
+
+                const gymAccount = document.getElementById("gymAccount").value;
+                const gymPassword = document.getElementById("gymPassword").value;
+                const captchaInput = document.getElementById("captchaInput").value;
+
+                // 检查验证码是否正确
+                if (captchaInput !== captchaText) {
+                    document.getElementById("result").textContent = "驗證失敗，請重試。";
+                    document.getElementById("result").style.color = "red";
+                    return;
+                }
+
+                // 验证码正确，继续处理登录
+                fetch(
+                    `http://localhost:3000/get_member?account=${encodeURIComponent(gymAccount)}&password=${encodeURIComponent(gymPassword)}`
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.error) {
+                            alert("错误: " + data.error);
+                        } else {
+                            // 登录成功后跳转到另一个页面
+                            window.location.href = "success.html"; // 更改为您想要的成功页面
+                        }
+                    })
+                    .catch((error) => console.error("错误:", error));
+            }
+        });
 
     </script>
 </body>
