@@ -1,6 +1,8 @@
 import { Sequelize } from "sequelize";
-
-
+const sequelize = new Sequelize('gym-db', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
 // 定義一個叫做 User 的資料結構
 const Member = sequelize.define('Member', {
     // 定義 Model 屬性

@@ -1,5 +1,4 @@
 import express from "express";
-import axios from "axios";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { Sequelize } from "sequelize";
@@ -9,7 +8,10 @@ import usersRouter from "./routes/users.js";
 
 
 // 透過 new 建立 Sequelize 這個 class，而 sequelize 就是物件 instance
-export const sequelize = new Sequelize('mysql://root@localhost:3306', {});
+const sequelize = new Sequelize('gym-db', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -44,3 +46,5 @@ app.use(function (err, req, res, next) {
 app.listen(port, () => {
     console.log(`Listening to port ${port}...`);
 });
+
+export default sequelize
