@@ -55,7 +55,9 @@
 
   <div class="register_bg">
     <div class="register_title">會員註冊</div>
-    <main class="register_main">
+
+
+    <form class="register_main" enctype="multipart/form-data">
       <div class="register_account">
         <p class="register_account_title">帳號設定</p>
         <br>
@@ -78,34 +80,34 @@
         <p class="info_p">請填寫你的會員資訊</p>
         <div class="info_label_input">
           <label for="gymName" class="login_label">姓名 ⮕</label>
-          <input type="text" class="info_register_input" id="gymName" placeholder="請輸入姓名" style="width: 250px;"
-            required>
+          <input type="text" class="info_register_input" id="gymName" name="member_name" placeholder="請輸入姓名"
+            style="width: 250px;" required>
           <span class="login_label">稱謂⮕</span>
-          <select name="gender" id="gender" class="info_register_select" required>
+          <select name="member_gender" id="gender" class="info_register_select" required>
             <option value="man">先生</option>
             <option value="woman">小姐</option>
           </select>
           <br>
           <label for="gymPhone" class="login_label">電話 ⮕</label>
-          <input type="text" class="info_register_input" id="gymPhone" placeholder="請輸入手機" pattern="^[0][9]\d{8}$"
-            style="width: 590px;" required>
+          <input type="text" class="info_register_input" id="gymPhone" name="member_phone" placeholder="請輸入手機"
+            pattern="^[0][9]\d{8}$" style="width: 590px;" required>
           <br>
-          <label for="gymDate" class="login_label">出生日期 ⮕</label>
-          <input type="date" class="info_register_input" id="gymDate" style="width: 200px;" required>
+          <label for="gymAge" class="login_label">年齡 ⮕</label>
+          <input type="number" class="info_register_input" id="gymAge" name="member_age" style="width: 200px;" required>
           <br>
           <label for="gymAdress" class="login_label">通訊地址 ⮕</label>
-          <input type="text" class="info_register_input" id="gymAdress" style="width: 550px;" required>
+          <input type="text" class="info_register_input" id="gymCity" name="member_city" style="width: 550px;" required>
           <br>
           <label for="gymImage" class="login_label">上傳頭貼 ⮕</label>
-          <input type="file" name="file[]" multiple="multiple" required="required" draggable="true" id="gymImage" />
+          <input type="file" name="member_image" required="required" draggable="true" id="gymImage" />
           <br>
           <div class="info_confirm">
-            <input type="button" value="確認" class="button_logic">
+            <input type="submit" value="確認" class="button_logic">
           </div>
-          </select>
         </div>
       </div>
-    </main>
+    </form>
+
   </div>
 
   <footer class="footer">
@@ -119,6 +121,76 @@
       <p><br><br>© 2024 AIML05. All rights reserved.</p>
     </div>
   </footer>
+  <script>
+    $(document).ready(function () {
+      $('form.register_main').on('submit', function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+          url: 'http://localhost:3000/update_member',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            alert('註冊成功');
+          },
+          error: function (xhr, status, error) {
+            alert('註冊失敗: ' + error);
+          }
+        });
+      });
+    });
+    // 提交新成員信息
+    document.getElementById('userForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+
+      fetch('http://localhost:3000/update_member', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert('錯誤：' + data.error);
+          } else {
+            alert('成員資料更新成功！');
+            updateMemberInfo(data);
+          }
+        })
+        .catch(error => console.error('錯誤:', error));
+    });
+    // 查詢成員信息
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const searchName = document.getElementById('searchName').value;
+
+      fetch(`http://localhost:3000/get_member?name=${encodeURIComponent(searchName)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert('錯誤：' + data.error);
+          } else {
+            updateMemberInfo(data);
+          }
+        })
+        .catch(error => console.error('錯誤:', error));
+    });
+    // 更新成員信息顯示
+    function updateMemberInfo(member) {
+      const memberInfoDiv = document.getElementById('memberInfo');
+      memberInfoDiv.innerHTML = `
+                <p>性別: ${member.member_gender}</p>
+                <p>姓名: ${member.member_name}</p>
+                <p>手機: ${member.member_phone}</p>
+                <p>年紀: ${member.member_age}</p>
+                <p>居住城市: ${member.member_city}</p>
+                <p>圖片: <img src="${member.member_image}" alt="成員圖片" width="100"></p>
+            `;
+    }
+  </script>
 </body>
 
 </html>

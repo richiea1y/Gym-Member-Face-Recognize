@@ -450,10 +450,8 @@ main {
 .register_info {
   background-color: white;
   max-width: 1000px;
-  height: 1000px;
+  max-height: 1500px;
   padding-top: 20px;
-  line-height: 3em;
-  
 }
 .info_title{
   display: flex;
@@ -485,7 +483,7 @@ main {
   padding-left:150px ;
 }
 .info_confirm{
-  position: absolute;
-  bottom: -750px;
-  left: 850px;
+  margin-left: 250px;
+  margin-top: 100px;
+  padding-bottom: 100px;
 }
