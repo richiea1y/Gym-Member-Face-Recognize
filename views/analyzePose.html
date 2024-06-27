@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運動分析</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin: 50px;
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            flex: 1;
+            margin-right: 50px; /* Add some space between the content and the video feed */
+        }
+        .progress-bar {
+            width: auto; /* Adjust width to occupy full available space */
+            background-color: #f0f0f0;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .progress {
+            background-color: #4caf50;
+            height: 30px;
+            text-align: right;
+            line-height: 30px;
+            color: white;
+        }
+        #webcamScreen {
+            flex: 1;
+            max-width: 100%;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>姿勢分析與計數</h1>
+        <div id="progressBars"></div>
+        <button id="streamToggleButton">暫停串流</button>
+    </div>
+
+    <div id="webcamScreen">
+        <img id="videoFrame" alt="Video Feed" style="max-width:100%;">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let ws;
+            let isStreaming = true;
+            let startButtons;
+
+            function startExercise(index) {
+                const exercise = trainingSet[index].exercise;
+                ws.send(JSON.stringify({ action: 'start', exercise }));
+
+                // Disable all start buttons
+                startButtons.forEach(button => button.disabled = true);
+
+                // Enable the stream toggle button
+                streamToggleButton.disabled = false;
+            }
+
+            function stopStreaming() {
+                ws.send(JSON.stringify({ action: 'stop' }));
+
+                // Enable all start buttons
+                startButtons.forEach(button => button.disabled = false);
+            }
+
+            // Load custom training plan data from the server
+            fetch('http://127.0.0.1:3000/getTrainingData')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('網路回應有誤');
+                    }
+                    return response.json();
+                })
+                .then(trainingSet => {
+                    console.log('伺服器回應:', trainingSet);
+                    if (!trainingSet || trainingSet.length === 0) {
+                        alert('客製化訓練表一片空白');
+                        window.location.href = 'chooseExercise.html'; // 如果沒有數據則重定向回去
+                        return;
+                    }
+
+                    const progressBarsDiv = document.getElementById('progressBars');
+
+                    // Display progress bars
+                    trainingSet.forEach((item, index) => {
+                        const progressContainer = document.createElement('div');
+                        progressContainer.classList.add('progress-bar');
+
+                        const progressBar = document.createElement('div');
+                        progressBar.classList.add('progress');
+                        progressBar.style.width = `${item.quantity * 10}px`; // 假設1單位=10像素寬
+                        progressBar.textContent = `${item.quantity} 組`;
+
+                        const itemInfo = document.createElement('span');
+                        itemInfo.textContent = `${index + 1}. ${item.exercise} ${item.calory} 卡`;
+
+                        const startButton = document.createElement('button');
+                        startButton.textContent = '開始';
+                        startButton.addEventListener('click', () => startExercise(index));
+
+                        progressContainer.appendChild(itemInfo);
+                        progressContainer.appendChild(progressBar);
+                        progressContainer.appendChild(startButton);
+
+                        progressBarsDiv.appendChild(progressContainer);
+                    });
+
+                    // Save reference to all start buttons
+                    startButtons = document.querySelectorAll('#progressBars button');
+
+                    // WebSocket connection for receiving video frames
+                    ws = new WebSocket('ws://localhost:3000');
+                    const videoFrame = document.getElementById('videoFrame');
+
+                    ws.onmessage = function (event) {
+                        if (isStreaming) {
+                            const data = JSON.parse(event.data);
+                            videoFrame.src = 'data:image/jpeg;base64,' + data.frame;
+                        }
+                    };
+
+                    ws.onopen = function () {
+                        console.log('WebSocket連接已打開');
+                    };
+
+                    ws.onclose = function () {
+                        console.log('WebSocket連接已關閉');
+                    };
+
+                    // Handle stream toggle button click event
+                    const streamToggleButton = document.getElementById('streamToggleButton');
+                    streamToggleButton.addEventListener('click', () => {
+                        if (isStreaming) {
+                            isStreaming = false;
+                            stopStreaming();
+                            streamToggleButton.disabled = true;
+                        } else {
+                            isStreaming = true;
+                            streamToggleButton.disabled = false;
+                        }
+                    });
+
+                    // Initially, disable the stream toggle button
+                    streamToggleButton.disabled = true;
+                })
+                .catch(error => {
+                    console.error('加載訓練數據時發生錯誤:', error);
+                    alert('加載訓練數據時發生錯誤，請稍後再試');
+                });
+        });
+    </script>
+</body>
+</html>

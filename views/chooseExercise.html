@@ -52,24 +52,12 @@
                 <input type="button" value="送出" class="calSmallBtn" id="submitBtn">
                 <input type="button" value="重設" class="calSmallBtn" id="resetBtn">
             </div>
+        </div>
 
-        </div>
-        <div>
-            <div class="exerciser_webcam">
-                <canvas></canvas>
-            </div>
-            <div class="exerciser_Calculate">
-                <div>計算次數</div>
-                <div id="total">
-                    <ol id="cart-total"></ol>
-                </div>
-            </div>
-        </div>
         <div>
             <div>
                 <input type="button" value="顯示/隱藏" class="calSmallBtn" id="toggleBtn">
             </div>
-
             <div class="item">
                 <p>舉啞鈴 (5cal/ea)</p>
                 <label for="quantity1">次數：</label>
@@ -117,7 +105,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
             const resetButton = document.getElementById("resetBtn");
-            const addExerciser = document.querySelectorAll(".add-to-cart-btn");
 
             addToCartButtons.forEach(button => {
                 button.addEventListener("click", addToCart);
@@ -125,16 +112,9 @@
 
             resetButton.addEventListener("click", reset);
             document.getElementById("submitBtn").addEventListener("click", saveData);
-
-            addExerciser.forEach(button => {
-                button.addEventListener("click", addExerciserCalculate);
-            });
-
-            resetButton.addEventListener("click", reset);
-            document.getElementById("submitBtn").addEventListener("click", saveData);
-
         });
 
+        // 每項訓練的卡路里數量
         const itemCalories = {
             "舉啞鈴": 5,
             "仰臥起坐": 5,
@@ -142,41 +122,49 @@
             "交互蹲跳": 20
         };
 
+        // 將選中的項目加入訓練表
         function addToCart() {
-            const itemName = this.getAttribute("data-item");
+            const exercise = this.getAttribute("data-item");
             const quantityInputId = this.getAttribute("data-quantity-input");
             const quantity = parseInt(document.getElementById(quantityInputId).value);
-            const totalCal = quantity * itemCalories[itemName];
+            const totalCal = quantity * itemCalories[exercise];
 
             const cartItems = document.getElementById('cart-items');
             const li = document.createElement('li');
-            li.textContent = `${itemName} \t ${quantity} \t 次 \t 卡路里： ${totalCal}`;
+            li.textContent = `${exercise}\t ${quantity} \t 組 \t 卡路里： ${totalCal}`;
             cartItems.appendChild(li);
 
             updateTotalCal();
         }
 
+        // 重設訓練表
         function reset() {
-            document.getElementById("cart-items").innerHTML = "";
+            document.getElementById("cart-items").textContent = "";
             updateTotalCal();
-            document.getElementById("cart-total").innerHTML = "";
         }
 
+        // 更新總卡路里
         function updateTotalCal() {
             const cartItems = document.getElementById('cart-items').getElementsByTagName('li');
             let totalCal = 0;
 
             for (let i = 0; i < cartItems.length; i++) {
                 const parts = cartItems[i].textContent.split("\t");
-                const calory = parseFloat(parts[3].substring(5));
+                const calory = parseInt(parts[3].substring(5));
                 totalCal += calory;
             }
 
             const totalCalElement = document.getElementById('totalCal');
             totalCalElement.style.color = totalCal > 1000 ? 'red' : 'black';
-            totalCalElement.textContent = `您將燃燒的卡路里：${totalCal.toFixed(2)} 卡`;
+            totalCalElement.textContent = totalCal < 2000 ? `您將燃燒的卡路里：${totalCal.toFixed(2)} 卡` : `運動過量有害健康`;
+            // 如果總卡路里超過2000，禁用所有加入訓練表的按鈕
+            const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+            addToCartButtons.forEach(button => {
+                button.disabled = totalCal > 2000;
+            });
         }
 
+        // 保存訓練數據到伺服器
         function saveData() {
             const cartItems = document.getElementById('cart-items').getElementsByTagName('li');
             const data = [];
@@ -184,37 +172,42 @@
             for (let i = 0; i < cartItems.length; i++) {
                 const item = {};
                 const parts = cartItems[i].textContent.split("\t");
-                item.itemName = parts[0];
+                item.exercise = parts[0];
                 item.quantity = parseInt(parts[1]);
                 item.calory = parseFloat(parts[3].substring(5));
                 data.push(item);
             }
 
-            const jsonData = JSON.stringify(data, null, 2);
-            const blob = new Blob([jsonData], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
+            // 建立要傳送的資料物件
+            const postData = {
+                trainingSet: data
+            };
 
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'cart_data.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            // 使用 Fetch API 將資料傳送到伺服器
+            fetch('http://127.0.0.1:3000/saveTrainingData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('網路回應有誤');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('伺服器回應:', data);
+                    // 重定向到下一個頁面或根據需要處理回應
+                    window.location.href = 'analyzePose.html';
+                })
+                .catch(error => {
+                    console.error('保存數據時發生錯誤:', error);
+                    // 在這裡處理錯誤
+                });
 
-            // Clear the cart
-            reset();
-        }
-        function addExerciserCalculate() {
-            const itemName = this.getAttribute("data-item");
-            const quantityInputId = this.getAttribute("data-quantity-input");
-            const quantity = parseInt(document.getElementById(quantityInputId).value);
-
-            const cartItems = document.getElementById('cart-total');
-            const li = document.createElement('li');
-            li.textContent = `${itemName} \t ${quantity} \t 次`;
-            cartItems.appendChild(li);
-
+            window.location.href = 'analyzePose.html';
         }
     </script>
 
