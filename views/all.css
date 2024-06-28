@@ -495,17 +495,39 @@ main {
   width: 1000px;
   margin-bottom: 20px;
 }
+.member_view a:hover{
+  color: #212529;
+}
+
 .member_title{
   margin: auto;
   font-weight: 700;
   text-align: center;
+  margin-top: 30px;
 }
 .member_name{
   font-size: x-large;
-  margin: 50px;
+  border-bottom: #ccc 2px solid;
+  border-top: #ccc 2px solid;
+  margin: 40px;
+  padding: 10px;
+  display:flex;
+  justify-content: space-around;
+  
+
 }
+.member_name:hover{
+  background-color: #808080;
+}
+
 .member_photo{
   border: #1f5322ca 2px solid;
   width: 500px;
   height: 400px;
+  margin: auto;
+  margin-top: 30px;
+}
+.member_info{
+  border: #0e212c 2px solid;
+  width: 100px;
 }
